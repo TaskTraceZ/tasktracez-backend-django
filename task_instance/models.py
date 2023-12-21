@@ -7,6 +7,7 @@ class TaskInstance(models.Model):
     started_at = models.TimeField()
     stopped_at = models.TimeField()
     duration_worked = models.DurationField()
+    in_progress = models.BooleanField(default=False)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

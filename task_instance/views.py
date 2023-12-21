@@ -29,6 +29,8 @@ class TaskInstanceModelViewSet(viewsets.ModelViewSet):
 
         task.started_at = started_at
 
+        task.in_progress = True
+
         task.save()
 
         serializer = self.serializer_class(task)
@@ -55,6 +57,8 @@ class TaskInstanceModelViewSet(viewsets.ModelViewSet):
         stopped_at_to_seconds = task.stopped_at.hour * 3600 + task.stopped_at.minute * 60 + task.stopped_at.second
 
         task.duration_worked = task.duration_worked + timedelta(seconds=(stopped_at_to_seconds - started_at_to_seconds))
+
+        task.in_progress = False
 
         task.save()
 
