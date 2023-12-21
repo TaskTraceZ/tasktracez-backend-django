@@ -13,6 +13,34 @@ class TaskInstanceModelViewSet(viewsets.ModelViewSet):
 
     serializer_class = TaskInstanceSerializer
 
+    def list(self, request, *args, **kwargs):
+        start_date = request.query_params.get("start_date")
+
+        if not start_date:
+            return Response(
+                {'error': 'Missing required query parameter: start_date'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        end_date = request.query_params.get("end_date")
+
+        if not end_date:
+            return Response(
+                {'error': 'Missing required query parameter: end_date'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
+        end_date = datetime.strptime(end_date, "%Y-%m-%d").date()
+
+        queryset = self.get_queryset()
+
+        queryset = queryset.filter(created_at__gte=start_date).filter(created_at__lte=end_date)
+
+        serializer = self.serializer_class(queryset, many=True)
+
+        return Response(serializer.data)
+
     @action(detail=True, methods=["post"])
     def start(self, request, pk=None):
         started_at = request.query_params.get("started_at")
