@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'project.apps.ProjectConfig',
     'task.apps.TaskConfig',
+    'task_instance.apps.TaskInstanceConfig',
 ]
 
 MIDDLEWARE = [
