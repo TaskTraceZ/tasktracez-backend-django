@@ -15,12 +15,25 @@ class TaskInstanceModelViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["post"])
     def start(self, request, pk=None):
+        started_at = request.query_params.get("started_at")
+
+        if not started_at:
+            return Response(
+                {'error': 'Missing required query parameter: started_at'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        started_at = datetime.strptime(started_at, "%H:%M:%S").time()
+
         task = self.get_object()
-        task.started_at = task.stopped_at
-        task.stopped_at = None
-        task.duration_worked = None
+
+        task.started_at = started_at
+
         task.save()
-        return task
+
+        serializer = self.serializer_class(task)
+
+        return Response(serializer.data)
 
     @action(detail=True, methods=["post"])
     def stop(self, request, pk=None):
