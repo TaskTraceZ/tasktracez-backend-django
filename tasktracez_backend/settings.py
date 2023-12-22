@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'drf_spectacular',
     'project.apps.ProjectConfig',
     'task.apps.TaskConfig',
     'task_instance.apps.TaskInstanceConfig',
@@ -83,6 +84,18 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+}
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'TaskTraceZ API',
+    'DESCRIPTION': 'Effortlessly stay organized and boost productivity with our intuitive task tracker app, '
+                   'your go-to tool for seamlessly managing and completing tasks on the go.',
+    'VERSION': '1.0.0',
 }
 
 
