@@ -5,7 +5,7 @@ from project import views
 
 router = DefaultRouter()
 
-router.register("project", views.ProjectModelViewSet, basename="project")
+router.register("projects", views.ProjectModelViewSet, basename="projects")
 
 urlpatterns = [
     path('', include(router.urls))

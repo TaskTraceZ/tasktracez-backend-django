@@ -5,7 +5,7 @@ from task_instance import views
 
 router = DefaultRouter()
 
-router.register("task_instance", views.TaskInstanceModelViewSet, basename="task_instance")
+router.register("task_instances", views.TaskInstanceModelViewSet, basename="task_instances")
 
 urlpatterns = [
     path('', include(router.urls))
