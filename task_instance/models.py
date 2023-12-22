@@ -4,6 +4,7 @@ from task.models import Task
 
 
 class TaskInstance(models.Model):
+    billable = models.BooleanField(default=False)
     started_at = models.TimeField()
     stopped_at = models.TimeField()
     duration_worked = models.DurationField()

@@ -307,6 +307,19 @@ paths:
   /api/v1/task_instances/:
     get:
       operationId: task_instances_list
+      parameters:
+      - in: query
+        name: end_date
+        schema:
+          type: string
+        description: 'The end date for filtering tasks (format: YYYY-MM-DD).'
+        required: true
+      - in: query
+        name: start_date
+        schema:
+          type: string
+        description: 'The start date for filtering tasks (format: YYYY-MM-DD).'
+        required: true
       tags:
       - task_instances
       security:
@@ -467,6 +480,12 @@ paths:
           type: integer
         description: A unique integer value identifying this task instance.
         required: true
+      - in: query
+        name: started_at
+        schema:
+          type: string
+        description: 'The time at which the task is started (format: HH:MM:SS).'
+        required: true
       tags:
       - task_instances
       requestBody:
@@ -501,6 +520,12 @@ paths:
         schema:
           type: integer
         description: A unique integer value identifying this task instance.
+        required: true
+      - in: query
+        name: stopped_at
+        schema:
+          type: string
+        description: 'The time at which the task is stopped (format: HH:MM:SS).'
         required: true
       tags:
       - task_instances
@@ -728,6 +753,8 @@ components:
         id:
           type: integer
           readOnly: true
+        billable:
+          type: boolean
         started_at:
           type: string
           format: time
@@ -805,6 +832,8 @@ components:
         id:
           type: integer
           readOnly: true
+        billable:
+          type: boolean
         started_at:
           type: string
           format: time

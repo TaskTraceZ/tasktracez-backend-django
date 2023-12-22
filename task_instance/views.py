@@ -1,5 +1,7 @@
 from datetime import datetime, timedelta
 
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -13,6 +15,25 @@ class TaskInstanceModelViewSet(viewsets.ModelViewSet):
 
     serializer_class = TaskInstanceSerializer
 
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                name='start_date',
+                type=str,
+                location=OpenApiParameter.QUERY,
+                required=True,
+                description='The start date for filtering tasks (format: YYYY-MM-DD).',
+            ),
+            OpenApiParameter(
+                name='end_date',
+                type=str,
+                location=OpenApiParameter.QUERY,
+                required=True,
+                description='The end date for filtering tasks (format: YYYY-MM-DD).',
+            ),
+        ],
+        responses={200: TaskInstanceSerializer(many=True)},
+    )
     def list(self, request, *args, **kwargs):
         start_date = request.query_params.get("start_date")
 
@@ -41,6 +62,17 @@ class TaskInstanceModelViewSet(viewsets.ModelViewSet):
 
         return Response(serializer.data)
 
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                name='started_at',
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+                required=True,
+                description='The time at which the task is started (format: HH:MM:SS).',
+            ),
+        ],
+    )
     @action(detail=True, methods=["post"])
     def start(self, request, pk=None):
         started_at = request.query_params.get("started_at")
@@ -65,6 +97,17 @@ class TaskInstanceModelViewSet(viewsets.ModelViewSet):
 
         return Response(serializer.data)
 
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                name='stopped_at',
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+                required=True,
+                description='The time at which the task is stopped (format: HH:MM:SS).',
+            ),
+        ],
+    )
     @action(detail=True, methods=["post"])
     def stop(self, request, pk=None):
         stopped_at = request.query_params.get("stopped_at")
