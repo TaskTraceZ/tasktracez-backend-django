@@ -4,7 +4,8 @@ from task_instance.models import TaskInstance
 
 
 class TaskInstanceSerializer(serializers.ModelSerializer):
-    title = serializers.StringRelatedField(source='task.title', read_only=True)
+    task_title = serializers.StringRelatedField(source='task.title', read_only=True)
+    project_title = serializers.StringRelatedField(source='task.project.title', read_only=True)
 
     class Meta:
         model = TaskInstance
