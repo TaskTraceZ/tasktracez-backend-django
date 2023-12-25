@@ -8,8 +8,6 @@ services:
     image: tasktracez-backend
     container_name: tasktracez-backend
     command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
-    volumes:
-      - tasktracez-data:/tasktracez-backend
     ports:
       - "8000:8000"
     depends_on:
@@ -28,5 +26,4 @@ services:
       - mysql-data:/var/lib/mysql
 
 volumes:
-  tasktracez-data:
   mysql-data:
