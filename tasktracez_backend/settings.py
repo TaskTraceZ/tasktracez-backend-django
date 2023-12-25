@@ -12,8 +12,19 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+from common.util.env import get_env_vars
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+ENV_VARS = get_env_vars(
+    "MYSQL_ROOT_PASSWORD",
+    "MYSQL_DATABASE",
+    "MYSQL_USER",
+    "MYSQL_HOST",
+    "MYSQL_PORT"
+)
 
 
 # Quick-start development settings - unsuitable for production
@@ -83,8 +94,15 @@ WSGI_APPLICATION = 'tasktracez_backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': ENV_VARS["MYSQL_DATABASE"],
+        'USER': ENV_VARS["MYSQL_USER"],
+        'PASSWORD': ENV_VARS["MYSQL_ROOT_PASSWORD"],
+        'HOST': ENV_VARS["MYSQL_HOST"],
+        'PORT': ENV_VARS["MYSQL_PORT"],
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        },
     }
 }
 
