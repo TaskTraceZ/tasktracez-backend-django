@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 
 
 load_dotenv()
-load_dotenv('.env.database', override=True)
 
 
 def get_env_vars(*args: str) -> Dict[str, str]:
@@ -18,3 +17,12 @@ def get_env_vars(*args: str) -> Dict[str, str]:
             raise EnvironmentError(f"'{arg}'")
 
     return env_vars
+
+
+def get_env_var(var: str) -> str:
+    value = os.getenv(var)
+
+    if not value:
+        raise EnvironmentError(f"'{var}")
+    
+    return value

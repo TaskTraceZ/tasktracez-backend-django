@@ -12,18 +12,23 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
-from common.util.env import get_env_vars
+from common.util.env import get_env_var, get_env_vars
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-ENV_VARS = get_env_vars(
-    "MYSQL_ROOT_PASSWORD",
-    "MYSQL_DATABASE",
-    "MYSQL_USER",
-    "MYSQL_HOST",
-    "MYSQL_PORT"
+ENVIRONMENT = get_env_var("ENV")
+
+DATABASE_ENV_VARS = {}
+
+if ENVIRONMENT == "dev":
+    DATABASE_ENV_VARS = get_env_vars(
+    "DATABASE_PASSWORD",
+    "DATABASE_NAME",
+    "DATABASE_USER",
+    "DATABASE_HOST",
+    "DATABASE_PORT"
 )
 
 
@@ -93,18 +98,21 @@ WSGI_APPLICATION = 'tasktracez_backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'default': {}
+}
+
+if ENVIRONMENT == "dev":
+    DATABASES['default'] = {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': ENV_VARS["MYSQL_DATABASE"],
-        'USER': ENV_VARS["MYSQL_USER"],
-        'PASSWORD': ENV_VARS["MYSQL_ROOT_PASSWORD"],
-        'HOST': ENV_VARS["MYSQL_HOST"],
-        'PORT': ENV_VARS["MYSQL_PORT"],
+        'NAME': DATABASE_ENV_VARS["DATABASE_NAME"],
+        'USER': DATABASE_ENV_VARS["DATABASE_USER"],
+        'PASSWORD': DATABASE_ENV_VARS["DATABASE_PASSWORD"],
+        'HOST': DATABASE_ENV_VARS["DATABASE_HOST"],
+        'PORT': DATABASE_ENV_VARS["DATABASE_PORT"],
         'OPTIONS': {
             'charset': 'utf8mb4',
         },
     }
-}
 
 
 REST_FRAMEWORK = {
