@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     image: tasktracez-backend
     container_name: tasktracez-backend
-    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: sh -c "python manage.py migrate && if [ \"$ENV\" = \"dev\" ]; then python manage.py loaddata */fixtures/*.yaml; fi && python manage.py runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
     depends_on:

@@ -1,0 +1,35 @@
+- model: task.task
+  pk: 1
+  fields:
+    title: 'Quantum Algorithm Optimization'
+    description: 'Develop and optimize quantum algorithms for QuantumSwift, focusing on enhancing performance and efficiency in solving specific computational problems, such as factorization and optimization.'
+    created_at: '2023-12-26T16:50:38.194580Z'
+    updated_at: '2023-12-26T16:50:38.194616Z'
+    project_id: 1
+
+- model: task.task
+  pk: 2
+  fields:
+    title: 'Scalability Assessment'
+    description: 'Conduct a comprehensive analysis of QuantumSwift''s scalability, exploring ways to increase the number of qubits and improve overall system scalability to handle increasingly complex computational workloads.'
+    created_at: '2023-12-26T16:50:52.491020Z'
+    updated_at: '2023-12-26T16:50:52.491055Z'
+    project_id: 1
+
+- model: task.task
+  pk: 3
+  fields:
+    title: 'Brain-Computer Interface (BCI) Calibration'
+    description: 'Implement a robust calibration system for NeuralVista''s BCI, fine-tuning the interface to individual users'' neural patterns to ensure seamless and reliable communication between the brain and external devices.'
+    created_at: '2023-12-26T16:51:06.506627Z'
+    updated_at: '2023-12-26T16:51:06.506665Z'
+    project_id: 2
+
+- model: task.task
+  pk: 4
+  fields:
+    title: 'Virtual Reality Integration'
+    description: 'Integrate NeuralVista with cutting-edge virtual reality technologies, allowing users to experience immersive virtual environments with heightened sensory input, and explore the potential applications in gaming, education, and simulation.'
+    created_at: '2023-12-26T16:51:20.704426Z'
+    updated_at: '2023-12-26T16:51:20.704493Z'
+    project_id: 2
