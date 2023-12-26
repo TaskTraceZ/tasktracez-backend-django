@@ -129,6 +129,7 @@ SPECTACULAR_SETTINGS = {
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
+    'http://host.docker.internal:3000'
 ]
 
 
