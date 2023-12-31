@@ -10,3 +10,4 @@ class TaskInstanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = TaskInstance
         fields = '__all__'
+        read_only_fields = ['duration_worked']

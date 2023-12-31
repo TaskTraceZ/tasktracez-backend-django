@@ -159,6 +159,29 @@ paths:
       responses:
         '204':
           description: No response body
+  /api/v1/projects/{id}/tasks/:
+    get:
+      operationId: projects_tasks_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this project.
+        required: true
+      tags:
+      - projects
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: ''
   /api/v1/schema/:
     get:
       operationId: schema_retrieve
@@ -753,6 +776,12 @@ components:
         id:
           type: integer
           readOnly: true
+        task_title:
+          type: string
+          readOnly: true
+        project_title:
+          type: string
+          readOnly: true
         billable:
           type: boolean
         started_at:
@@ -832,6 +861,12 @@ components:
         id:
           type: integer
           readOnly: true
+        task_title:
+          type: string
+          readOnly: true
+        project_title:
+          type: string
+          readOnly: true
         billable:
           type: boolean
         started_at:
@@ -856,11 +891,10 @@ components:
           type: integer
       required:
       - created_at
-      - duration_worked
       - id
-      - started_at
-      - stopped_at
+      - project_title
       - task
+      - task_title
       - updated_at
   securitySchemes:
     basicAuth:

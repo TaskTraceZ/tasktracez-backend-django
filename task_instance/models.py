@@ -1,13 +1,14 @@
+from datetime import time, timedelta
 from django.db import models
 
 from task.models import Task
 
 
 class TaskInstance(models.Model):
-    billable = models.BooleanField(default=False)
-    started_at = models.TimeField()
-    stopped_at = models.TimeField()
-    duration_worked = models.DurationField()
+    billable = models.BooleanField()
+    started_at = models.TimeField(default=time(0, 0, 0))
+    stopped_at = models.TimeField(default=time(0, 0, 0))
+    duration_worked = models.DurationField(default=timedelta())
     in_progress = models.BooleanField(default=False)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
