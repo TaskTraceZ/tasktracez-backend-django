@@ -9,6 +9,18 @@ paths:
   /api/v1/projects/:
     get:
       operationId: projects_list
+      parameters:
+      - in: query
+        name: sort_by
+        schema:
+          type: string
+        description: Sort the results by this field. (e.g., "title")
+      - in: query
+        name: sort_order
+        schema:
+          type: string
+        description: 'Sort order. Use "asc" for ascending order and "desc" for descending
+          order. (default: "asc")'
       tags:
       - projects
       security:

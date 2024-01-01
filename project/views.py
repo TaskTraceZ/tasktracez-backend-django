@@ -1,4 +1,6 @@
-from rest_framework import viewsets
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import extend_schema, OpenApiParameter
+from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -13,12 +15,53 @@ class ProjectModelViewSet(viewsets.ModelViewSet):
 
     serializer_class = ProjectSerializer
 
-    @action(detail=True, methods=['get'])
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                name="sort_by",
+                type=str,
+                location=OpenApiParameter.QUERY,
+                required=False,
+                description='Sort the results by this field. (e.g., "title")',
+            ),
+            OpenApiParameter(
+                name="sort_order",
+                type=str,
+                location=OpenApiParameter.QUERY,
+                required=False,
+                description='Sort order. Use "asc" for ascending order and "desc" for descending order. (default: "asc")',
+            ),
+        ],
+        responses={200: ProjectSerializer(many=True)},
+    )
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+
+        sort_by = request.query_params.get("sort_by")
+        sort_order = request.query_params.get("sort_order", "asc")
+
+        if sort_order not in ["asc", "desc"]:
+            return Response(
+                {"error": 'Invalid sort_order parameter. Use "asc" or "desc".'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if sort_by == "title":
+            if sort_order == "asc":
+                queryset = queryset.order_by("title")
+            elif sort_order == "desc":
+                queryset = queryset.order_by("-title")
+
+        serializer = self.serializer_class(queryset, many=True)
+
+        return Response(serializer.data)
+
+    @action(detail=True, methods=["get"])
     def tasks(self, request, pk=None):
         project = self.get_object()
 
         tasks = Task.objects.filter(project=project)
-        
+
         serializer = TaskSerializer(tasks, many=True)
-        
+
         return Response(serializer.data)
