@@ -36,7 +36,7 @@ class TaskInstanceModelViewSet(viewsets.ModelViewSet):
                 type=str,
                 location=OpenApiParameter.QUERY,
                 required=False,
-                description="Sort the results by this field. (e.g., \"task_title\")",
+                description="Sort the results by this field. (e.g., \"created_at\", \"task_title\")",
             ),
             OpenApiParameter(
                 name="sort_order",
@@ -77,15 +77,21 @@ class TaskInstanceModelViewSet(viewsets.ModelViewSet):
         sort_by = request.query_params.get("sort_by")
         sort_order = request.query_params.get("sort_order", "asc")
 
+        if sort_order not in ["asc", "desc"]:
+            return Response(
+                {"error": "Invalid sort_order parameter. Use \"asc\" or \"desc\"."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if sort_by == "created_at":
+            if sort_order == "asc":
+                queryset = queryset.order_by("created_at")
+            elif sort_order == "desc":
+                queryset = queryset.order_by("-created_at")
+
         serializer = self.serializer_class(queryset, many=True)
 
         if sort_by == "task_title":
-            if sort_order not in ["asc", "desc"]:
-                return Response(
-                    {"error": "Invalid sort_order parameter. Use \"asc\" or \"desc\"."},
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
-            
             data = serializer.data
 
             key_function = lambda x: x["task_title"]

@@ -341,13 +341,13 @@ paths:
         name: sort_by
         schema:
           type: string
-        description: Sort the results by this field. (e.g., 'task_title')
+        description: Sort the results by this field. (e.g., "created_at", "task_title")
       - in: query
         name: sort_order
         schema:
           type: string
-        description: 'Sort order. Use ''asc'' for ascending order and ''desc'' for
-          descending order. (default: ''asc'')'
+        description: 'Sort order. Use "asc" for ascending order and "desc" for descending
+          order. (default: "asc")'
       - in: query
         name: start_date
         schema:
