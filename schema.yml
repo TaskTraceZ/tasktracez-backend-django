@@ -338,6 +338,17 @@ paths:
         description: 'The end date for filtering tasks (format: YYYY-MM-DD).'
         required: true
       - in: query
+        name: sort_by
+        schema:
+          type: string
+        description: Sort the results by this field. (e.g., 'task_title')
+      - in: query
+        name: sort_order
+        schema:
+          type: string
+        description: 'Sort order. Use ''asc'' for ascending order and ''desc'' for
+          descending order. (default: ''asc'')'
+      - in: query
         name: start_date
         schema:
           type: string
@@ -792,6 +803,7 @@ components:
           format: time
         duration_worked:
           type: string
+          readOnly: true
         in_progress:
           type: boolean
         created_at:
@@ -877,6 +889,7 @@ components:
           format: time
         duration_worked:
           type: string
+          readOnly: true
         in_progress:
           type: boolean
         created_at:
@@ -890,7 +903,9 @@ components:
         task:
           type: integer
       required:
+      - billable
       - created_at
+      - duration_worked
       - id
       - project_title
       - task
