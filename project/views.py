@@ -8,12 +8,24 @@ from project.models import Project
 from project.serializers import ProjectSerializer
 from task.models import Task
 from task.serializers import TaskSerializer
+from rest_framework.permissions import IsAuthenticated
 
 
 class ProjectModelViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
 
     serializer_class = ProjectSerializer
+
+    permission_classes = [IsAuthenticated]
+
+    @extend_schema(
+        request=ProjectSerializer,
+        responses={201: ProjectSerializer()},
+    )
+    def create(self, request, *args, **kwargs):
+        request.data['user'] = request.user.id
+        
+        return super().create(request, *args, **kwargs)
 
     @extend_schema(
         parameters=[
@@ -35,7 +47,7 @@ class ProjectModelViewSet(viewsets.ModelViewSet):
         responses={200: ProjectSerializer(many=True)},
     )
     def list(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
+        queryset = Project.objects.filter(user=request.user)
 
         sort_by = request.query_params.get("sort_by")
         sort_order = request.query_params.get("sort_order", "asc")

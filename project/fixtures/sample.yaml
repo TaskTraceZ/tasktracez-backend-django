@@ -5,6 +5,7 @@
     description: "QuantumSwift is a revolutionary quantum computing platform designed to accelerate complex data processing tasks, ushering in a new era of unprecedented computational speed and efficiency."
     created_at: '2023-12-26T16:50:06.536241Z'
     updated_at: '2023-12-26T16:50:06.536273Z'
+    user_id: 2
 
 - model: project.project
   pk: 2
@@ -13,3 +14,4 @@
     description: "NeuralVista is an advanced neural interface technology that seamlessly integrates with the human brain, unlocking immersive virtual experiences and enhancing cognitive abilities for unparalleled human-machine interaction."
     created_at: '2023-12-26T16:50:18.006128Z'
     updated_at: '2023-12-26T16:50:18.006164Z'
+    user_id: 2

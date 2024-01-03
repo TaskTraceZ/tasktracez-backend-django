@@ -24,9 +24,7 @@ paths:
       tags:
       - projects
       security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -53,9 +51,7 @@ paths:
               $ref: '#/components/schemas/Project'
         required: true
       security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
+      - tokenAuth: []
       responses:
         '201':
           content:
@@ -76,9 +72,7 @@ paths:
       tags:
       - projects
       security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -110,9 +104,7 @@ paths:
               $ref: '#/components/schemas/Project'
         required: true
       security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -143,9 +135,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedProject'
       security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -165,9 +155,7 @@ paths:
       tags:
       - projects
       security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
+      - tokenAuth: []
       responses:
         '204':
           description: No response body
@@ -184,9 +172,7 @@ paths:
       tags:
       - projects
       security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -316,8 +302,7 @@ paths:
       tags:
       - schema
       security:
-      - cookieAuth: []
-      - basicAuth: []
+      - tokenAuth: []
       - {}
       responses:
         '200':
@@ -369,9 +354,7 @@ paths:
       tags:
       - task_instances
       security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -398,9 +381,7 @@ paths:
               $ref: '#/components/schemas/TaskInstance'
         required: true
       security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
+      - tokenAuth: []
       responses:
         '201':
           content:
@@ -421,9 +402,7 @@ paths:
       tags:
       - task_instances
       security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -455,9 +434,7 @@ paths:
               $ref: '#/components/schemas/TaskInstance'
         required: true
       security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -488,9 +465,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedTaskInstance'
       security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -510,9 +485,7 @@ paths:
       tags:
       - task_instances
       security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
+      - tokenAuth: []
       responses:
         '204':
           description: No response body
@@ -547,9 +520,7 @@ paths:
               $ref: '#/components/schemas/TaskInstance'
         required: true
       security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -588,9 +559,7 @@ paths:
               $ref: '#/components/schemas/TaskInstance'
         required: true
       security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -604,9 +573,7 @@ paths:
       tags:
       - tasks
       security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -633,9 +600,7 @@ paths:
               $ref: '#/components/schemas/Task'
         required: true
       security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
+      - tokenAuth: []
       responses:
         '201':
           content:
@@ -656,9 +621,7 @@ paths:
       tags:
       - tasks
       security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -690,9 +653,7 @@ paths:
               $ref: '#/components/schemas/Task'
         required: true
       security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -723,9 +684,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedTask'
       security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
+      - tokenAuth: []
       responses:
         '200':
           content:
@@ -745,9 +704,7 @@ paths:
       tags:
       - tasks
       security:
-      - cookieAuth: []
-      - basicAuth: []
-      - {}
+      - tokenAuth: []
       responses:
         '204':
           description: No response body
@@ -772,6 +729,8 @@ components:
           type: string
           format: date-time
           readOnly: true
+        user:
+          type: integer
     PatchedTask:
       type: object
       properties:
@@ -847,11 +806,14 @@ components:
           type: string
           format: date-time
           readOnly: true
+        user:
+          type: integer
       required:
       - created_at
       - id
       - title
       - updated_at
+      - user
     Task:
       type: object
       properties:
@@ -924,10 +886,8 @@ components:
       - task_title
       - updated_at
   securitySchemes:
-    basicAuth:
-      type: http
-      scheme: basic
-    cookieAuth:
+    tokenAuth:
       type: apiKey
-      in: cookie
-      name: sessionid
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"

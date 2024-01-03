@@ -54,7 +54,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'djoser',
     'rest_framework',
+    'rest_framework.authtoken',
     'drf_spectacular',
     'project.apps.ProjectConfig',
     'task.apps.TaskConfig',
@@ -116,6 +118,9 @@ if ENVIRONMENT == "dev":
 
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 

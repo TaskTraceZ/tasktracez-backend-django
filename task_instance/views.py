@@ -8,12 +8,15 @@ from rest_framework.response import Response
 
 from task_instance.models import TaskInstance
 from task_instance.serializers import TaskInstanceSerializer
+from rest_framework.permissions import IsAuthenticated
 
 
 class TaskInstanceModelViewSet(viewsets.ModelViewSet):
     queryset = TaskInstance.objects.all()
 
     serializer_class = TaskInstanceSerializer
+
+    permission_classes = [IsAuthenticated]
 
     @extend_schema(
         parameters=[
