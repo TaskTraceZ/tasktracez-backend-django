@@ -18,12 +18,7 @@ from common.util.env import get_env_var, get_env_vars
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-ENVIRONMENT = get_env_var("ENV")
-
-DATABASE_ENV_VARS = {}
-
-if ENVIRONMENT == "dev":
-    DATABASE_ENV_VARS = get_env_vars(
+DATABASE_ENV_VARS = get_env_vars(
     "DATABASE_PASSWORD",
     "DATABASE_NAME",
     "DATABASE_USER",
@@ -58,6 +53,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'drf_spectacular',
+    'user.apps.UserConfig',
     'project.apps.ProjectConfig',
     'task.apps.TaskConfig',
     'task_instance.apps.TaskInstanceConfig',
@@ -100,21 +96,15 @@ WSGI_APPLICATION = 'tasktracez_backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {}
-}
-
-if ENVIRONMENT == "dev":
-    DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.mysql',
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': DATABASE_ENV_VARS["DATABASE_NAME"],
         'USER': DATABASE_ENV_VARS["DATABASE_USER"],
         'PASSWORD': DATABASE_ENV_VARS["DATABASE_PASSWORD"],
         'HOST': DATABASE_ENV_VARS["DATABASE_HOST"],
         'PORT': DATABASE_ENV_VARS["DATABASE_PORT"],
-        'OPTIONS': {
-            'charset': 'utf8mb4',
-        },
-    }
+    },
+}
 
 
 REST_FRAMEWORK = {

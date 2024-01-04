@@ -11,19 +11,20 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - mysql
+      - database
     env_file:
       - .env
 
-  mysql:
-    image: mysql:latest
-    container_name: tasktracez-mysql
+  database:
+    image: postgres:latest
+    container_name: tasktracez-database
     env_file:
       - .env.database
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - mysql-data:/var/lib/mysql
+      - database-data:/var/lib/postgresql/data
+    command: ["postgres", "-c", "listen_addresses=*"]
 
 volumes:
-  mysql-data:
+  database-data:

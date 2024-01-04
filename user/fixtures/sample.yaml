@@ -1,0 +1,31 @@
+- model: auth.user
+  pk: 1
+  fields:
+    password: pbkdf2_sha256$600000$g7Urx2nNUecLGEyxo8Umk5$bWA8t9CpZ/4/UsZf04tWaZJ1sUW2SxiwhcD4wnTUGik=
+    last_login: 2024-01-04 03:21:27.959661+00:00
+    is_superuser: true
+    username: vscode
+    first_name: ''
+    last_name: ''
+    email: ''
+    is_staff: true
+    is_active: true
+    date_joined: 2024-01-04 03:21:15.972969+00:00
+    groups: []
+    user_permissions: []
+
+- model: auth.user
+  pk: 2
+  fields:
+    password: pbkdf2_sha256$600000$ARAz1tB7wTyV9Bn02OMd8u$ZgZVBYljJU9GLConujj9P0Tb71yG74ok3lg/b3Dox+4=
+    last_login: null
+    is_superuser: false
+    username: tirthyakamaldasgupta
+    first_name: ''
+    last_name: ''
+    email: ''
+    is_staff: false
+    is_active: true
+    date_joined: 2024-01-04 03:21:50.290262+00:00
+    groups: []
+    user_permissions: []
