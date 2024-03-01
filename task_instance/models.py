@@ -14,5 +14,11 @@ class TaskInstance(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        permissions = [
+            ("start_task_instance", "Can start task instance"),
+            ("stop_task_instance", "Can stop task instance"),
+        ]
+
     def __str__(self) -> str:
         return self.task.title
