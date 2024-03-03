@@ -23,7 +23,7 @@ DATABASE_ENV_VARS = get_env_vars(
     "DATABASE_NAME",
     "DATABASE_USER",
     "DATABASE_HOST",
-    "DATABASE_PORT"
+    "DATABASE_PORT",
 )
 
 
@@ -31,7 +31,7 @@ DATABASE_ENV_VARS = get_env_vars(
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ssqg-#qmx$db65)sn6j%6kq(k6b!*v)wc=u$*dog!prrm2tc^$'
+SECRET_KEY = "django-insecure-ssqg-#qmx$db65)sn6j%6kq(k6b!*v)wc=u$*dog!prrm2tc^$"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -42,90 +42,89 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'corsheaders',
-    'djoser',
-    'rest_framework',
-    'rest_framework.authtoken',
-    'drf_spectacular',
-    'user.apps.UserConfig',
-    'project.apps.ProjectConfig',
-    'task.apps.TaskConfig',
-    'task_instance.apps.TaskInstanceConfig',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "corsheaders",
+    "djoser",
+    "rest_framework",
+    "rest_framework.authtoken",
+    "drf_spectacular",
+    "user.apps.UserConfig",
+    "project.apps.ProjectConfig",
+    "task.apps.TaskConfig",
+    "task_instance.apps.TaskInstanceConfig",
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
-ROOT_URLCONF = 'tasktracez_backend.urls'
+ROOT_URLCONF = "tasktracez_backend.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / "templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'tasktracez_backend.wsgi.application'
+WSGI_APPLICATION = "tasktracez_backend.wsgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': DATABASE_ENV_VARS["DATABASE_NAME"],
-        'USER': DATABASE_ENV_VARS["DATABASE_USER"],
-        'PASSWORD': DATABASE_ENV_VARS["DATABASE_PASSWORD"],
-        'HOST': DATABASE_ENV_VARS["DATABASE_HOST"],
-        'PORT': DATABASE_ENV_VARS["DATABASE_PORT"],
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": DATABASE_ENV_VARS["DATABASE_NAME"],
+        "USER": DATABASE_ENV_VARS["DATABASE_USER"],
+        "PASSWORD": DATABASE_ENV_VARS["DATABASE_PASSWORD"],
+        "HOST": DATABASE_ENV_VARS["DATABASE_HOST"],
+        "PORT": DATABASE_ENV_VARS["DATABASE_PORT"],
     },
 }
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.TokenAuthentication",
     ),
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    # "DEFAULT_PERMISSION_CLASSES": (
+    #     "rest_framework.permissions.DjangoModelPermissions",
+    # ),
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'TaskTraceZ API',
-    'DESCRIPTION': 'Effortlessly stay organized and boost productivity with our intuitive task tracker app, '
-                   'your go-to tool for seamlessly managing and completing tasks on the go.',
-    'VERSION': '1.0.0',
+    "TITLE": "TaskTraceZ API",
+    "DESCRIPTION": "Effortlessly stay organized and boost productivity with our intuitive task tracker app, "
+    "your go-to tool for seamlessly managing and completing tasks on the go.",
+    "VERSION": "1.0.0",
 }
 
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-    'http://host.docker.internal:3000'
-]
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://host.docker.internal:3000"]
 
 
 # Password validation
@@ -133,16 +132,16 @@ CORS_ALLOWED_ORIGINS = [
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
@@ -150,9 +149,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -162,9 +161,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

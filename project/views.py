@@ -5,10 +5,11 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from project.models import Project
+from project.permission import IsAdmin
 from project.serializers import ProjectSerializer
 from task.models import Task
 from task.serializers import TaskSerializer
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions
 
 
 class ProjectModelViewSet(viewsets.ModelViewSet):
@@ -16,15 +17,15 @@ class ProjectModelViewSet(viewsets.ModelViewSet):
 
     serializer_class = ProjectSerializer
 
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsAdmin]
 
     @extend_schema(
         request=ProjectSerializer,
         responses={201: ProjectSerializer()},
     )
     def create(self, request, *args, **kwargs):
-        request.data['user'] = request.user.id
-        
+        request.data["user"] = request.user.id
+
         return super().create(request, *args, **kwargs)
 
     @extend_schema(
