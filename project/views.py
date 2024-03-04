@@ -4,12 +4,13 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from project.models import Project
+from project.models import Project, ProjectUser
 from project.permission import IsAdmin
 from project.serializers import ProjectSerializer
 from task.models import Task
 from task.serializers import TaskSerializer
 from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions
+from django.contrib.auth.models import User
 
 
 class ProjectModelViewSet(viewsets.ModelViewSet):
@@ -78,3 +79,31 @@ class ProjectModelViewSet(viewsets.ModelViewSet):
         serializer = TaskSerializer(tasks, many=True)
 
         return Response(serializer.data)
+
+    @action(detail=True, methods=["post"], url_path="add/(?P<user_id>[^/.]+)")
+    @extend_schema(
+        request=None,
+        responses={200: {"message": "User added to project successfully"}},
+    )
+    def add_user(self, request, pk=None, user_id=None):
+        project = self.get_object()
+
+        user = User.objects.get(pk=user_id)
+
+        if not user:
+            return Response(
+                {"error": "User not found"}, status=status.HTTP_404_NOT_FOUND
+            )
+
+        if project.user == user:
+            return Response(
+                {"error": "User already added to this project"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        ProjectUser(project=project, user=user).save()
+
+        return Response(
+            {"message": "User added to project successfully"},
+            status=status.HTTP_200_OK,
+        )
