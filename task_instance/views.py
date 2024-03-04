@@ -7,6 +7,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from task_instance.models import TaskInstance
+from task_instance.permission import IsMember, IsOwner
 from task_instance.serializers import TaskInstanceSerializer
 from rest_framework.permissions import IsAuthenticated
 
@@ -16,7 +17,15 @@ class TaskInstanceModelViewSet(viewsets.ModelViewSet):
 
     serializer_class = TaskInstanceSerializer
 
-    permission_classes = [IsAuthenticated]
+    permission_classes = []
+
+    def get_permissions(self):
+        if self.action == "create":
+            self.permission_classes = [IsAuthenticated, IsMember]
+        else:
+            self.permission_classes = [IsAuthenticated, IsMember, IsOwner]
+
+        return super().get_permissions()
 
     @extend_schema(
         parameters=[
@@ -39,14 +48,14 @@ class TaskInstanceModelViewSet(viewsets.ModelViewSet):
                 type=str,
                 location=OpenApiParameter.QUERY,
                 required=False,
-                description="Sort the results by this field. (e.g., \"created_at\", \"task_title\")",
+                description='Sort the results by this field. (e.g., "created_at", "task_title")',
             ),
             OpenApiParameter(
                 name="sort_order",
                 type=str,
                 location=OpenApiParameter.QUERY,
                 required=False,
-                description="Sort order. Use \"asc\" for ascending order and \"desc\" for descending order. (default: \"asc\")",
+                description='Sort order. Use "asc" for ascending order and "desc" for descending order. (default: "asc")',
             ),
         ],
         responses={200: TaskInstanceSerializer(many=True)},
@@ -82,7 +91,7 @@ class TaskInstanceModelViewSet(viewsets.ModelViewSet):
 
         if sort_order not in ["asc", "desc"]:
             return Response(
-                {"error": "Invalid sort_order parameter. Use \"asc\" or \"desc\"."},
+                {"error": 'Invalid sort_order parameter. Use "asc" or "desc".'},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 

@@ -1,5 +1,6 @@
 from datetime import time, timedelta
 from django.db import models
+from django.contrib.auth.models import User
 
 from task.models import Task
 
@@ -11,6 +12,7 @@ class TaskInstance(models.Model):
     duration_worked = models.DurationField(default=timedelta())
     in_progress = models.BooleanField(default=False)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
